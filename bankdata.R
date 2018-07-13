@@ -2,19 +2,33 @@ install.packages("")
 library(ggplot2)
 library(gridExtra)
 
-setwd("C:/Users/HS/Desktop/bank marketing")
+setwd("C:/Users/HS/Documents/GitHub/analsying-bank-data")
 
 bank<-read.csv("bank-additional-full.csv", header = TRUE)
 head(bank)
+names(bank)
 
 
 summary(bank)
+str(bank)
 
-
+table(bank$job)
+table(bank$marital)
+table(bank$education)
 table(bank$default)
+table(bank$housing)
+table(bank$loan)
+table(bank$contact)
+table(bank$month)
+table(bank$day_of_week)
+table(bank$duration)
+table(bank$campaign)
+table(bank$poutcome)
+table(bank$y)
+
+
 
 table(bank$y)
-names(bank)
 
 p0<- ggplot(bank)+geom_bar(aes(age), stat="count")+
   ggtitle("age") +
@@ -46,4 +60,9 @@ p5
 p6
 
 
+a<- bank[,c(16:20)]
+a
+
+cor(a)
+plot(a)
 
