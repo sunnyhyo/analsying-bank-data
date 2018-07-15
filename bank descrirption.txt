@@ -1,0 +1,127 @@
+bank marketing dataset 
+
+Source:
+
+[Moro et al., 2014] S. Moro, P. Cortez and P. Rita. A Data-Driven Approach to Predict the Success of Bank Telemarketing. Decision Support Systems, Elsevier, 62:22-31, June 2014
+
+
+Data Set Information:
+
+The data is related with direct marketing campaigns of a Portuguese banking institution. The marketing campaigns were based on phone calls. Often, more than one contact to the same client was required, in order to access if the product (bank term deposit) would be ('yes') or not ('no') subscribed. 
+
+There are four datasets: 
+1) bank-additional-full.csv with all examples (41188) and 20 inputs, ordered by date (from May 2008 to November 2010), very close to the data analyzed in [Moro et al., 2014]
+2) bank-additional.csv with 10% of the examples (4119), randomly selected from 1), and 20 inputs.
+3) bank-full.csv with all examples and 17 inputs, ordered by date (older version of this dataset with less inputs). 
+4) bank.csv with 10% of the examples and 17 inputs, randomly selected from 3 (older version of this dataset with less inputs). 
+The smallest datasets are provided to test more computationally demanding machine learning algorithms (e.g., SVM). 
+
+The classification goal is to predict if the client will subscribe (yes/no) a term deposit (variable y).
+
+
+Attribute Information:
+
+Input variables:
+
+
+#### bank client data:
+1 - age (numeric)
+2 - job : type of job 
+(categorical: 'admin.','blue-collar','entrepreneur','housemaid','management','retired','self-employed','services','student','technician','unemployed','unknown')
+> table(bank$job)
+
+       admin.   blue-collar  entrepreneur     housemaid    management       retired self-employed      services 
+        10422          9254          1456          1060          2924          1720          1421          3969 
+      student    technician    unemployed       unknown 
+          875          6743          1014           330 
+
+3 - marital : marital status (categorical: 'divorced','married','single','unknown'; note: 'divorced' means divorced or widowed)
+> table(bank$marital)
+
+   divorced  married   single  unknown 
+        4612    24928    11568       80 
+4 - education (categorical: 'basic.4y','basic.6y','basic.9y','high.school','illiterate','professional.course','university.degree','unknown')
+> table(bank$education)
+
+           basic.4y            basic.6y            basic.9y         high.school          illiterate 
+               4176                2292                6045                9515                  18 
+        professional.course   university.degree             unknown 
+               5243               12168                1731 
+5 - default: has credit in default? (categorical: 'no','yes','unknown')
+> table(bank$default)
+
+     no unknown     yes 
+  32588    8597       3 
+
+6 - housing: has housing loan? (categorical: 'no','yes','unknown')
+> table(bank$housing)
+
+     no unknown     yes 
+  18622     990   21576 
+
+7 - loan: has personal loan? (categorical: 'no','yes','unknown')
+> table(bank$loan)
+
+     no unknown     yes 
+  33950     990    6248
+
+
+
+#### related with the last contact of the current campaign:
+8 - contact: contact communication type (categorical: 'cellular','telephone') 
+> table(bank$contact)
+
+ cellular telephone 
+    26144     15044 
+
+9 - month: last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')
+> table(bank$month)
+
+  apr   aug   dec   jul   jun   mar   may   nov   oct   sep 
+ 2632  6178   182  7174  5318   546 13769  4101   718   570 
+
+10 - day_of_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')
+> table(bank$day_of_week)
+
+ fri  mon  thu  tue  wed 
+7827 8514 8623 8090 8134 
+
+11 - duration:통화시간 last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target 
+(e.g., if duration=0 then y='no'). Yet, the duration is not known before a call is performed. 
+Also, after the end of the call y is obviously known. 
+Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.
+
+
+
+#### other attributes:
+12 - campaign: number of contacts performed during this campaign and for this client (numeric, includes last contact)
+> table(bank$campaign)
+
+    1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18 
+17642 10570  5341  2651  1599   979   629   400   283   225   177   125    92    69    51    51    58    33 
+   19    20    21    22    23    24    25    26    27    28    29    30    31    32    33    34    35    37 
+   26    30    24    17    16    15     8     8    11     8    10     7     7     4     4     3     5     1 
+   39    40    41    42    43    56 
+    1     2     1     2     2     1 
+
+13 - pdays: number of days that passed by after the client was last contacted from a previous campaign 
+(numeric; 999 means client was not previously contacted)  전 캠페인에하고 얼마나 지났는지
+
+
+14 - previous: number of contacts performed before this campaign and for this client (numeric) 과거에 연락을 얼마나 했는지
+
+15 - poutcome: outcome of the previous marketing campaign (categorical: 'failure','nonexistent','success') 과거 캠페인 성공여부
+> table(bank$poutcome)
+
+    failure nonexistent     success 
+       4252       35563        1373 
+#### social and economic context attributes
+16 - emp.var.rate: employment variation rate - quarterly indicator (numeric)
+17 - cons.price.idx: consumer price index - monthly indicator (numeric) 
+18 - cons.conf.idx: consumer confidence index - monthly indicator (numeric) 
+19 - euribor3m: euribor 3 month rate - daily indicator (numeric)
+20 - nr.employed: number of employees - quarterly indicator (numeric)
+
+Output variable (desired target):
+21 - y - has the client subscribed a term deposit? (binary: 'yes','no')
+

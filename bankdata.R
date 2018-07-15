@@ -25,7 +25,7 @@ table(bank$duration)
 table(bank$campaign)
 table(bank$poutcome)
 table(bank$y)
-
+4640/(365848+4640)
 
 
 table(bank$y)
@@ -62,7 +62,56 @@ p6
 
 a<- bank[,c(16:20)]
 a
-
+cor(bank)
 cor(a)
 plot(a)
+
+
+set.seed(1802)
+names(bank)
+bank.glm <- glm(y ~ ., 
+                data   = bank,
+                family = "binomial")
+summary(bank.glm)
+
+
+glm.mari<- glm(y ~ marital, data= bank, family ="binomial")
+summary(glm.mari)
+
+
+#모형을 생성함에 있어서 유의한 변수들에는 어떤 것들이 있는지와 특히 유의한 변수들은 무엇이 있는지 확인 해보는 과정입니다.
+#total.sulfur.dioxide, volatile.acidity , sulphates, alcohol 
+y_obs<- bank$y
+yhat_glm <- predict(bank.glm)
+binomial_deviance(y_obs, yhat_glm)
+
+
+
+###########3
+
+library(MASS)
+library(ISLR)
+library(py)
+
+
+
+#PCA
+bank.pca <-princomp(bank, scale=TRUE)
+bank.pca.predict <-predict()
+bank.pca.result<-cbind
+
+
+
+#####
+#data set 
+#traing, test set 나누기
+#75% 
+sam_size <- floor(0.75 * nrow(bank))
+
+#set the see dto make your partition 
+set.seed(1023)
+train_bank <- sample(seq_len(nrow(bank), size = sam_size))
+
+train <- bank[train_bank, ]
+test <- bank[-train_bank, ]
 
